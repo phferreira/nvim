@@ -1,8 +1,9 @@
+vim.cmd([[
+  filetype plugin indent on
+  syntax on
+]])
+
 vim.g.mapleader = ' '
---filetype plugin on
---filetype indent on
---filetype on
---syntax on
 
 vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
