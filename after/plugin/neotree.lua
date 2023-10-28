@@ -107,8 +107,7 @@ require("neo-tree").setup({
         if (node.type == "directory" or node:has_children()) and node:is_expanded() then
           state.commands.toggle_node(state)
         else
-          --required("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-          state.commands.toggle_node(state)
+          require('neo-tree.ui.renderer').focus_node(state, node:get_parent_id())
         end
       end,
     },
