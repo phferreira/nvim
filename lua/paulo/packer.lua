@@ -21,6 +21,7 @@ return require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
+  use { 'windwp/nvim-autopairs' }
   use{
     'nvim-neo-tree/neo-tree.nvim',
     branch = 'v3.x',
