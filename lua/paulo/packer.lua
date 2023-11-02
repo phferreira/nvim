@@ -13,6 +13,7 @@ return require('packer').startup(function(use)
   use{ 'mbbill/undotree' }
   use{ 'tpope/vim-fugitive' }
   use{ 'tpope/vim-surround' }
+  use{ 'tpope/vim-fugitive' } 
   use{ 'tpope/vim-obsession' }
   use{ 'dhruvasagar/vim-prosession' }
   use{ 'backdround/tabscope.nvim' }
