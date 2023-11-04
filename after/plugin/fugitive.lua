@@ -14,6 +14,7 @@ vim.keymap.set('n', '<leader>gp', ':Git push<CR>')
 vim.keymap.set('n', '<leader>gP', ':lua GPull()<CR>')
 vim.keymap.set('n', '<leader>gC', ':lua require\'telescope.builtin\'.git_branches()<CR>')
 vim.keymap.set('n', '<leader>gS', ':lua require\'telescope.builtin\'.git_stash()<CR>')
+vim.keymap.set('n', '<leader>gL', ':lua require\'telescope.builtin\'.git_commits()<CR>')
 
 local function GetCurrentBranch()
   local handle = io.popen('git branch --show-current' )
