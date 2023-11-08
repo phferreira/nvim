@@ -14,6 +14,7 @@ return require('packer').startup(function(use)
   use{ 'tpope/vim-fugitive' }
   use{ 'tpope/vim-surround' }
   use{ 'tpope/vim-obsession' }
+  use{ 'tpope/vim-commentary' }
   use{ 'dhruvasagar/vim-prosession' }
   use{ 'backdround/tabscope.nvim' }
   use{ 'lewis6991/gitsigns.nvim' }
