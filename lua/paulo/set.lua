@@ -30,6 +30,7 @@ vim.opt.smartcase=true
 vim.opt.ignorecase=true
 vim.opt.laststatus=2
 vim.opt.wrap=false
+vim.opt.exrc=true
 --vim.opt.nocompatible=true
 --vim.opt.termwinsize=15x0
 --vim.opt.t_co=256
