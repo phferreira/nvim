@@ -30,6 +30,6 @@ function GReset()
 end
 
 function GPull()
-  vim.cmd('Git pull origin ' .. GetCurrentBranch() .. ' --recurse-submodules' )
+  vim.cmd('Git pull origin ' .. GetCurrentBranch() .. ' --rebase --recurse-submodules' )
 end
 
