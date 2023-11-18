@@ -1,6 +1,6 @@
 function ColorMyPencils(color)
-	color = color or 'rose-pine'
-	vim.cmd.colorscheme(color)
+  color = color or 'rose-pine'
+  vim.cmd.colorscheme(color)
 
   vim.cmd('hi DiffAdd    gui=NONE      guifg=#000000 guibg=#3E50D8')
   vim.cmd('hi DiffChange gui=NONE      guifg=#135B04 guibg=#51D137')

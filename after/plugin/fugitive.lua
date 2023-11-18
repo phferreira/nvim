@@ -1,5 +1,5 @@
 local function GetCurrentBranch()
-  local handle = io.popen('git branch --show-current' )
+  local handle = io.popen('git branch --show-current')
   local output = handle:read('*a')
   local branch = output:gsub('[\n\r]', ' ')
   handle.close()
@@ -7,10 +7,9 @@ local function GetCurrentBranch()
 end
 
 function GReset()
-  vim.cmd('Git reset origin/' .. GetCurrentBranch() .. ' --hard --recurse-submodules' )
+  vim.cmd('Git reset origin/' .. GetCurrentBranch() .. ' --hard --recurse-submodules')
 end
 
 function GPull()
-  vim.cmd('Git pull origin ' .. GetCurrentBranch() .. ' --rebase --recurse-submodules' )
+  vim.cmd('Git pull origin ' .. GetCurrentBranch() .. ' --rebase --recurse-submodules')
 end
-

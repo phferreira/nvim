@@ -1,7 +1,7 @@
 local lsp_zero = require('lsp-zero')
 
 lsp_zero.on_attach(function(_, bufnr)
-  lsp_zero.default_keymaps({buffer = bufnr} )
+  lsp_zero.default_keymaps({ buffer = bufnr })
 end)
 
 lsp_zero.format_on_save({
@@ -10,9 +10,9 @@ lsp_zero.format_on_save({
     timeout_ms = 10000,
   },
   servers = {
-    ['tsserver'] = {'javascript', 'typescript'},
-    ['rust_analyzer'] = {'rust'},
-    ['dartls'] = {'dart'}
+    ['tsserver'] = { 'javascript', 'typescript' },
+    ['rust_analyzer'] = { 'rust' },
+    ['dartls'] = { 'dart' }
   }
 })
 
@@ -28,7 +28,7 @@ require('mason-lspconfig').setup({
     'dockerls',
     'jsonls',
     'sqlls'
-  --  'xmlformatter'
+    --  'xmlformatter'
   },
 
   handlers = {
