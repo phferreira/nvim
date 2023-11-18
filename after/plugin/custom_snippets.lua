@@ -13,6 +13,24 @@ ls.add_snippets('gitcommit', {
 ls.add_snippets('dart', {
 	s('todo', {
 		t('// TODO: '), i(1), t(" - "), i(2)
-	})
+	}),
+	s('fix', {
+		t('// FIX: '), i(1), t(" - "), i(2)
+	}),
+	s('hack', {
+		t('// HACK: '), i(1), t(" - "), i(2)
+	}),
+	s('warn', {
+		t('// WARN: '), i(1), t(" - "), i(2)
+	}),
+	s('perf', {
+		t('// PERF: '), i(1), t(" - "), i(2)
+	}),
+	s('NOTE', {
+		t('// NOTE: '), i(1), t(" - "), i(2)
+	}),
+	s('test', {
+		t('// TEST: '), i(1), t(" - "), i(2)
+	}),
 })
 
