@@ -10,4 +10,9 @@ ls.add_snippets("gitcommit", {
 	})
 })
 
+ls.add_snippets('dart', {
+	s('todo', {
+		t('// TODO: '), i(1), t(" - "), i(2)
+	})
+})
 
