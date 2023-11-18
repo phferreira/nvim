@@ -57,4 +57,11 @@ return require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
+  use {
+    "folke/todo-comments.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      'nvim-tree/nvim-web-devicons'
+    }
+  }
 end)
