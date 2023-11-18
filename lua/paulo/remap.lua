@@ -63,7 +63,8 @@ vim.keymap.set('n', '<leader>fa' , ':lua FlutterAnalyze()<cr>', { noremap = true
 vim.keymap.set('n', '<leader>ft' , ':lua FlutterTest()<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fct', ':lua FlutterCreateTest()<cr>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', { noremap = true, silent = true })
-vim.keymap.set('n', '<M-CR>'     , ':lua vim.lsp.buf.code_action()<cr>', { noremap = true, silent = true })
+-- CODE ACTION
+vim.keymap.set('n', '<M-CR>', require("actions-preview").code_actions, { noremap = true, silent = true })
 
 -- GIT
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
