@@ -101,5 +101,28 @@ vim.keymap.set('n', '<leader>gS', ':lua require\'telescope.builtin\'.git_stash()
 vim.keymap.set('n', '<leader>gL', ':lua require\'telescope.builtin\'.git_commits()<CR>')
 vim.keymap.set('n', '<leader>d', ':lua ToggleDiagnostics()<CR>')
 
+-- GIT SIGNS
+local gs = require('gitsigns')
+
+vim.keymap.set('n', ']c', function()
+  if vim.wo.diff then return ']c' end
+  vim.schedule(function() gs.next_hunk() end)
+  return '<Ignore>'
+end, {expr=true})
+
+vim.keymap.set('n', '[c', function()
+  if vim.wo.diff then return '[c' end
+  vim.schedule(function() gs.prev_hunk() end)
+  return '<ignore>'
+end, {expr=true})
+
+vim.keymap.set('n', '<leader>hr', gs.reset_hunk)
+vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+vim.keymap.set('n', '<leader>hp', gs.preview_hunk)
+vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end)
+vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
+vim.keymap.set('n', '<leader>td', gs.toggle_deleted)
+vim.keymap.set('n', '<leader>tl', gs.toggle_linehl)
+
 -- SHOW TODOS
 vim.keymap.set('n', '<leader>std', ':TodoTelescope<CR>')
