@@ -46,7 +46,7 @@ vim.keymap.set('n', '<leader>r', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/g<LEFT><LEFT>'
 vim.keymap.set('n', '<leader>rc', ':%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gc<LEFT><LEFT><LEFT>')
 
 -- TELESCOPE
-builtin = require('telescope.builtin')
+local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
