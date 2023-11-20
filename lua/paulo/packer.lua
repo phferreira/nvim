@@ -18,8 +18,8 @@ return require('packer').startup(function(use)
   use { 'dhruvasagar/vim-prosession' }
   use { 'backdround/tabscope.nvim' }
   use { 'lewis6991/gitsigns.nvim' }
+  use { 'aznhe21/actions-preview.nvim' }
   use {
-    use { 'aznhe21/actions-preview.nvim' }
     'nvim-lualine/lualine.nvim',
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
