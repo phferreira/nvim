@@ -102,4 +102,4 @@ vim.keymap.set('n', '<leader>gL', ':lua require\'telescope.builtin\'.git_commits
 vim.keymap.set('n', '<leader>d', ':lua ToggleDiagnostics()<CR>')
 
 -- SHOW TODOS
-vim.keymap.set('n', '<leader>td', ':TodoTelescope<CR>')
+vim.keymap.set('n', '<leader>std', ':TodoTelescope<CR>')
