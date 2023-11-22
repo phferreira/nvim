@@ -36,6 +36,19 @@ dap.configurations.dart = {
       '-d', 'linux',
       '--dart-define-from-file', './keys.json'
     }
+  },
+  {
+    type = 'flutter',
+    request = 'launch',
+    name = 'Launch Flutter Chrome',
+    dartSdkPath = '/home/paulo/.development/flutter/bin/cache/dart-sdk/bin', -- ensure this is correct
+    flutterSdkPath = '/home/paulo/.development/flutter/',                    -- ensure this is correct
+    program = '${workspaceFolder}/lib/main.dart',                            -- ensure this is correct
+    cwd = '${workspaceFolder}',
+    toolArgs = {
+      '-d', 'chrome',
+      '--dart-define-from-file', './keys.json'
+    }
   }
 }
 
