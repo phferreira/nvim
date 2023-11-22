@@ -19,16 +19,23 @@ dap.configurations.dart = {
     flutterSdkPath = "/home/paulo/.development/flutter/",                  -- ensure this is correct
     program = "${workspaceFolder}/lib/main.dart",     -- ensure this is correct
     cwd = "${workspaceFolder}",
+    toolArgs = {
+      '--dart-define-from-file', './keys.json'
+    }
   },
   {
     type = "flutter",
     request = "launch",
-    name = "Launch flutter",
     dartSdkPath = "/home/paulo/.development/flutter/bin/cache/dart-sdk/bin", -- ensure this is correct
     flutterSdkPath = "/home/paulo/.development/flutter/",             -- ensure this is correct
     program = "${workspaceFolder}/lib/main.dart",     -- ensure this is correct
     cwd = "${workspaceFolder}",
     toolArgs = {"-d", "chrome"}
+    name = 'Launch Flutter Linux',
+    toolArgs = {
+      '-d', 'linux',
+      '--dart-define-from-file', './keys.json'
+    }
   }
 }
 
