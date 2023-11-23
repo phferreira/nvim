@@ -12,7 +12,8 @@ lsp_zero.format_on_save({
   servers = {
     ['tsserver'] = { 'javascript', 'typescript' },
     ['rust_analyzer'] = { 'rust' },
-    ['dartls'] = { 'dart' }
+    ['dartls'] = { 'dart' },
+    ['lua_ls'] = { 'lua' }
   }
 })
 
