@@ -82,6 +82,12 @@ vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', args)
 -- CODE ACTION
 vim.keymap.set('n', '<M-CR>', require("actions-preview").code_actions, args)
 
+-- DIAGNOSTICS
+vim.keymap.set('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', args)
+vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', args)
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', args)
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', args)
+
 -- GIT
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 vim.keymap.set('n', '<leader>gc', ':Git commit<CR>')
