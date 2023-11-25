@@ -1,5 +1,7 @@
 vim.g.mapleader = ' '
 
+local args = { noremap = true, silent = true }
+
 -- MOVE SELCTED LINES
 vim.keymap.set('v', '<C-K>', ':m \'<-2<CR>gv=gv')
 vim.keymap.set('v', '<C-J>', ':m \'>+1<CR>gv=gv')
@@ -72,13 +74,13 @@ vim.keymap.set('n', '<leader>fq', ':FlutterQuit<cr>')
 vim.keymap.set('n', '<leader>fH', ':FlutterHotReload<cr>')
 vim.keymap.set('n', '<leader>fR', ':FlutterHotRestart<cr>')
 vim.keymap.set('n', '<leader>fD', ':FlutterVisualDebug<cr>')
-vim.keymap.set('n', '<leader>fa', ':lua FlutterAnalyze()<cr>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>ft', ':lua FlutterTest()<cr>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>fct', ':lua FlutterCreateTest()<cr>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>fa', ':lua FlutterAnalyze()<cr>', args)
+vim.keymap.set('n', '<leader>ft', ':lua FlutterTest()<cr>', args)
+vim.keymap.set('n', '<leader>fct', ':lua FlutterCreateTest()<cr>', args)
+vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', args)
 
 -- CODE ACTION
-vim.keymap.set('n', '<M-CR>', require("actions-preview").code_actions, { noremap = true, silent = true })
+vim.keymap.set('n', '<M-CR>', require("actions-preview").code_actions, args)
 
 -- GIT
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
@@ -109,18 +111,18 @@ vim.keymap.set('n', ']c', function()
   if vim.wo.diff then return ']c' end
   vim.schedule(function() gs.next_hunk() end)
   return '<Ignore>'
-end, {expr=true})
+end, { expr = true })
 
 vim.keymap.set('n', '[c', function()
   if vim.wo.diff then return '[c' end
   vim.schedule(function() gs.prev_hunk() end)
   return '<ignore>'
-end, {expr=true})
+end, { expr = true })
 
 vim.keymap.set('n', '<leader>hr', gs.reset_hunk)
-vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+vim.keymap.set('v', '<leader>hr', function() gs.reset_hunk { vim.fn.line('.'), vim.fn.line('v') } end)
 vim.keymap.set('n', '<leader>hp', gs.preview_hunk)
-vim.keymap.set('n', '<leader>hb', function() gs.blame_line{full=true} end)
+vim.keymap.set('n', '<leader>hb', function() gs.blame_line { full = true } end)
 vim.keymap.set('n', '<leader>tb', gs.toggle_current_line_blame)
 vim.keymap.set('n', '<leader>td', gs.toggle_deleted)
 vim.keymap.set('n', '<leader>tl', gs.toggle_linehl)
@@ -154,9 +156,9 @@ vim.keymap.set('n', '<Leader>ds', function()
 end)
 
 -- NEOTEST
-vim.keymap.set('n', '<leader>tr',  ':Neotest run<CR>',                                         { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>tra', ':lua require("neotest").run.run(vim.fn.expand("%")) <CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>ts',  ':Neotest summary<CR>',                                     { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>to',  ':Neotest output<CR>',                                      { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>top', ':Neotest output-panel<CR>',                                { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>trd', ':lua require("neotest").run.run({strategy = "dap"})<CR>',  { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>tr', ':Neotest run<CR>', args)
+vim.keymap.set('n', '<leader>tra', ':lua require("neotest").run.run(vim.fn.expand("%")) <CR>', args)
+vim.keymap.set('n', '<leader>ts', ':Neotest summary<CR>', args)
+vim.keymap.set('n', '<leader>to', ':Neotest output<CR>', args)
+vim.keymap.set('n', '<leader>top', ':Neotest output-panel<CR>', args)
+vim.keymap.set('n', '<leader>trd', ':lua require("neotest").run.run({strategy = "dap"})<CR>', args)
