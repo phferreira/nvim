@@ -65,3 +65,15 @@ function DoTail()
 end
 
 vim.cmd('command! Tail execute \'lua DoTail()\'')
+
+-- SAVE/RESTORE FOLDS ON OPEN FILES
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  pattern = { "*.*" },
+  desc = "save view (folds), when closing file",
+  command = "mkview",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = { "*.*" },
+  desc = "load view (folds), when opening file",
+  command = "silent! loadview"
+})
