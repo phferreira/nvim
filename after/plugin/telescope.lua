@@ -78,7 +78,15 @@ local git_copy_id = function(prompt_bufnr)
     return
   end
   actions.close(prompt_bufnr)
-  vim.fn.setreg('+', selection.value)
+  local handle = io.popen('git rev-parse ' .. selection.value)
+  if handle == nil then
+    utils.__warn_no_selection "git_copy_id:handle"
+    return
+  end
+  local output = handle:read('*a')
+  local full_id = output:gsub('[\n\r]', '')
+  handle.close()
+  vim.fn.setreg('+', full_id)
 end
 
 require("telescope").setup {
