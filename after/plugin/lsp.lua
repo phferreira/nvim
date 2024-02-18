@@ -38,6 +38,14 @@ require('mason-lspconfig').setup({
 })
 local lspconfig = require('lspconfig')
 
+lspconfig.dartls.setup {
+  settings = {
+    dart = {
+      lineLength = 120
+    }
+  }
+}
+
 lspconfig.lua_ls.setup {
   settings = {
     Lua = {
