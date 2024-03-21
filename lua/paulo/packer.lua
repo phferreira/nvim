@@ -24,6 +24,7 @@ return require('packer').startup(function(use)
   use {
     "nvim-neotest/neotest",
     requires = {
+      'nvim-neotest/nvim-nio',
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       'sidlatau/neotest-dart',
