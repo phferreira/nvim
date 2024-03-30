@@ -10,7 +10,8 @@ ls.add_snippets('gitcommit', {
   })
 })
 
-ls.add_snippets('dart', {
+
+local mySnip = {
   s('todo', {
     t('// TODO: '), i(1), t(" - "), i(2)
   }),
@@ -32,4 +33,7 @@ ls.add_snippets('dart', {
   s('test', {
     t('// TEST: '), i(1), t(" - "), i(2)
   }),
-})
+}
+
+ls.add_snippets('dart', mySnip)
+ls.add_snippets('java', mySnip)
