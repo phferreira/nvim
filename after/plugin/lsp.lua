@@ -13,7 +13,8 @@ lsp_zero.format_on_save({
     ['tsserver'] = { 'javascript', 'typescript' },
     ['rust_analyzer'] = { 'rust' },
     ['dartls'] = { 'dart' },
-    ['lua_ls'] = { 'lua' }
+    ['lua_ls'] = { 'lua' },
+    ['jdtls'] = { 'java' }
   }
 })
 
@@ -28,7 +29,8 @@ require('mason-lspconfig').setup({
     'vimls',
     'dockerls',
     'jsonls',
-    'sqlls'
+    'sqlls',
+    'jdtls'
     --  'xmlformatter'
   },
 
@@ -37,6 +39,8 @@ require('mason-lspconfig').setup({
   },
 })
 local lspconfig = require('lspconfig')
+
+lspconfig.jdtls.setup({})
 
 lspconfig.dartls.setup {
   settings = {
