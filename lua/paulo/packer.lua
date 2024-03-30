@@ -72,7 +72,7 @@ return require('packer').startup(function(use)
   }
   use {
     "folke/todo-comments.nvim",
-    dependencies = {
+    requires = {
       "nvim-lua/plenary.nvim",
       'nvim-tree/nvim-web-devicons'
     }
