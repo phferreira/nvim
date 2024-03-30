@@ -28,6 +28,7 @@ return require('packer').startup(function(use)
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       'sidlatau/neotest-dart',
+      'rcasia/neotest-java'
     }
   }
   use {
