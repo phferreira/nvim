@@ -77,6 +77,7 @@ return require('packer').startup(function(use)
       'nvim-tree/nvim-web-devicons'
     }
   }
+  use 'lambdalisue/suda.vim'
   use {
     'nvim-java/nvim-java',
     requires = {
