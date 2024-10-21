@@ -69,7 +69,7 @@ vim.keymap.set('n', '<C-M-LEFT>', '<NOP>')
 vim.keymap.set('n', '<C-M-RIGHT>', '<NOP>')
 
 -- FLUTTER
-vim.keymap.set('n', '<leader>fr', ':FlutterRun<cr>')
+vim.keymap.set('n', '<leader>fr', ':lua FlutterRun()<cr>')
 vim.keymap.set('n', '<leader>fq', ':FlutterQuit<cr>')
 vim.keymap.set('n', '<leader>fH', ':FlutterHotReload<cr>')
 vim.keymap.set('n', '<leader>fR', ':FlutterRestart<cr>')

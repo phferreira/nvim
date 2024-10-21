@@ -61,3 +61,12 @@ function FlutterCreateTest()
     vim.fn.append(vim.fn.line('$'), "}")
   end
 end
+
+function FlutterRun()
+  -- local filePath = vim.fn.expand('%:r')
+  if vim.fn.filereadable('./.keys.json') == 1 then
+    vim.cmd('FlutterRun --dart-define-from-file=.keys.json')
+  else
+    vim.cmd('FlutterRun')
+  end
+end
