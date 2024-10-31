@@ -168,3 +168,6 @@ vim.keymap.set('n', '<leader>ts', ':Neotest summary<CR>', args)
 vim.keymap.set('n', '<leader>to', ':Neotest output<CR>', args)
 vim.keymap.set('n', '<leader>top', ':Neotest output-panel<CR>', args)
 vim.keymap.set('n', '<leader>trd', ':lua require("neotest").run.run({strategy = "dap"})<CR>', args)
+
+-- DADBOD
+vim.keymap.set('n', '<leader>db', ':DBUIToggle<CR>', args)
