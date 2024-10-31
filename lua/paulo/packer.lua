@@ -15,6 +15,10 @@ return require('packer').startup(function(use)
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-commentary' }
   use { 'tpope/vim-obsession' }
+
+  use { 'tpope/vim-dadbod' }
+  use { 'kristijanhusak/vim-dadbod-ui' }
+  use { 'kristijanhusak/vim-dadbod-completion' }
   use { 'dhruvasagar/vim-prosession' }
   use { 'backdround/tabscope.nvim' }
   use { 'lewis6991/gitsigns.nvim' }
