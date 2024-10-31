@@ -20,7 +20,8 @@ dap.configurations.dart = {
     program = '${workspaceFolder}/lib/main.dart',                            -- ensure this is correct
     cwd = '${workspaceFolder}',
     toolArgs = {
-      '--dart-define-from-file', './keys.json'
+      'bin/main.dart',
+      '--dart-define-from-file', '.keys.json'
     }
   },
   {
@@ -33,7 +34,7 @@ dap.configurations.dart = {
     cwd = '${workspaceFolder}',
     toolArgs = {
       '-d', 'linux',
-      '--dart-define-from-file', './keys.json'
+      '--dart-define-from-file', '.keys.json'
     }
   },
   {
@@ -46,7 +47,7 @@ dap.configurations.dart = {
     cwd = '${workspaceFolder}',
     toolArgs = {
       '-d', 'chrome',
-      '--dart-define-from-file', './keys.json'
+      '--dart-define-from-file', '.keys.json'
     }
   }
 }
