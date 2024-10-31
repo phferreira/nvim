@@ -76,6 +76,7 @@ return require('packer').startup(function(use)
     }
   }
   use {
+    -- sudo apt-get install ripgrep
     "folke/todo-comments.nvim",
     requires = {
       "nvim-lua/plenary.nvim",
