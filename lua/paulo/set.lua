@@ -9,7 +9,6 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.enc = 'utf-8'
-vim.opt.termencoding = 'utf-8'
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.splitbelow = true
