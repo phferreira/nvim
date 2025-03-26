@@ -137,7 +137,13 @@ vim.keymap.set('n', '<leader>tl', gs.toggle_linehl)
 vim.keymap.set('n', '<leader>std', ':TodoTelescope<CR>')
 
 -- DAP
-vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
+vim.keymap.set("n", "<F5>", function()
+  if require('dap').session() then
+    require('dap').continue()
+  else
+    vim.cmd('FlutterRun')
+  end
+end, { desc = "Continuar depuração" })
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
 vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
