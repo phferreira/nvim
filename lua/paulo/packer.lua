@@ -55,6 +55,7 @@ return require('packer').startup(function(use)
     requires = {
       'nvim-lua/plenary.nvim',
       'stevearc/dressing.nvim', -- optional for vim.ui.select
+      'mfussenegger/nvim-dap',
     },
   }
   use {
