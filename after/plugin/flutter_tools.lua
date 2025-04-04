@@ -8,6 +8,11 @@ require("flutter-tools").setup {
         command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter', -- dart-debug-adapter.cmd for windows users
         args = { 'dart' }
       }
+      require('dap').adapters.flutter = {
+        type = 'executable',
+        command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter', -- dart-debug-adapter.cmd for windows users
+        args = { 'flutter' }
+      }
       require("dap").configurations.dart = {
         {
           type = 'dart',
@@ -45,7 +50,30 @@ require("flutter-tools").setup {
           }
         }
       }
-      require("dap.ext.vscode").load_launchjs()
+      local dap = require("dap")
+      local json = require("dap.ext.vscode").json_decode
+
+      local file = io.open(".vscode/launch.json", "r")
+      if file then
+        local content = file:read("*a")
+        file:close()
+        local configs = json(content)
+
+        for _, config in pairs(configs.configurations) do
+          if not dap.configurations[config.type] then
+            dap.configurations[config.type] = {}
+          end
+          table.insert(dap.configurations[config.type], 1, config)
+        end
+      end
+      require("dap").defaults.fallback.force_external_terminal = false -- Opcional: evita abrir terminais externos
+      require("dap").defaults.fallback.pick_if_many = function(items, prompt, label_fn)
+        print("Modificando a seleção do DAP...")
+        if #items == 1 then
+          return items[1]
+        end
+        return require("dap.ui").pick(items, prompt, label_fn)
+      end
     end,
   },
   dev_log = {
