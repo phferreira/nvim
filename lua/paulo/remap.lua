@@ -80,7 +80,7 @@ vim.keymap.set('n', '<leader>fct', ':lua FlutterCreateTest()<cr>', args)
 vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', args)
 
 -- CODE ACTION
-vim.keymap.set('n', '<M-CR>', require("actions-preview").code_actions, args)
+vim.keymap.set("n", "<M-CR>", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "Code Action" })
 
 -- DIAGNOSTICS
 vim.keymap.set('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', args)

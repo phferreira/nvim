@@ -82,11 +82,10 @@ require("flutter-tools").setup {
   lsp = {
     on_attach = function(client, bufnr)
       require("lsp-zero").on_attach(client, bufnr)
-      vim.keymap.set("n", "<M-CR>", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "Code Action" })
     end,
     settings = {
       dart = {
-        lineLength = 80
+        lineLength = 100
       }
     }
   }
