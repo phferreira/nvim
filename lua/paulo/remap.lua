@@ -177,3 +177,11 @@ vim.keymap.set('n', '<leader>trd', ':lua require("neotest").run.run({strategy = 
 
 -- DADBOD
 vim.keymap.set('n', '<leader>db', ':DBUIToggle<CR>', args)
+
+--CHATGPT
+vim.keymap.set("n", "<leader>cc", "<cmd>ChatGPT<cr>", { desc = "Open ChatGPT" })
+vim.keymap.set("v", "<leader>ce", ":<C-u>ChatGPTRun explain_code<CR>", { desc = "Explain code", silent = true })
+vim.keymap.set("v", "<leader>cf", ":<C-u>ChatGPTRun fix_bugs<CR>", { desc = "Fix bugs", silent = true })
+vim.keymap.set("v", "<leader>ct", ":<C-u>ChatGPTRun translate<CR>", { desc = "Translate", silent = true })
+vim.keymap.set("v", "<leader>ci", ":<C-u>ChatGPTEditWithInstructions<CR>",
+  { desc = "Open ChatGPT with prompt", silent = true })
