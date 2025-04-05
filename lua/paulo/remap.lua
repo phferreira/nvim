@@ -12,6 +12,10 @@ vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', 'u', 'ugv')
 vim.keymap.set('v', 'U', 'Ugv')
 
+-- KEEP CURRENT REGISTER ON PASTE
+vim.keymap.set("x", "p", '"_dP', args)
+vim.keymap.set("x", "P", '"_dP', args)
+
 -- CENTER ON COMMAND
 vim.keymap.set('n', '<space><space>', 'i<space><ESC>')
 vim.keymap.set('n', 'n', 'nzzzv')
