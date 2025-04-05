@@ -12,7 +12,6 @@ lsp_zero.format_on_save({
   servers = {
     ['tsserver'] = { 'javascript', 'typescript' },
     ['rust_analyzer'] = { 'rust' },
-    ['dartls'] = { 'dart' },
     ['lua_ls'] = { 'lua' },
     ['jdtls'] = { 'java' }
   }
@@ -41,14 +40,6 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 
 lspconfig.jdtls.setup({})
-
-lspconfig.dartls.setup {
-  settings = {
-    dart = {
-      lineLength = 120
-    }
-  }
-}
 
 lspconfig.lua_ls.setup {
   settings = {
