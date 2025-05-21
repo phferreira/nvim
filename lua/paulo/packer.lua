@@ -106,6 +106,7 @@ return require('packer').startup(function(use)
       }
     },
   }
+  use{ "stevearc/conform.nvim", }
   use({
     "jackMort/ChatGPT.nvim",
     requires = {
