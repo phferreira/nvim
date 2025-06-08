@@ -1,4 +1,5 @@
 require("flutter-tools").setup {
+  fvm = true,
   debugger = {
     enabled = true,
     exception_breakpoints = {},
