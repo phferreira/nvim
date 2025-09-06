@@ -8,7 +8,7 @@ function FlutterAnalyze()
     vim.cmd('%d')
   end
 
-  vim.cmd('r!flutter analyze')
+  vim.cmd('r!fvm flutter analyze')
   vim.cmd('setlocal buftype=nofile')
   vim.cmd('setlocal bufhidden=hide')
 end
@@ -23,7 +23,7 @@ function FlutterTestAll()
     vim.cmd('%d')
   end
 
-  vim.cmd('r!flutter test -j 10 --reporter expanded ')
+  vim.cmd('r!fvm flutter test -j 10 --reporter expanded ')
   vim.cmd('setlocal buftype=nofile')
   vim.cmd('setlocal bufhidden=hide')
 end
@@ -31,7 +31,7 @@ end
 function FlutterTest()
   local path = vim.fn.expand('%:p')
   local file = '__Flutter_Test_' .. vim.fn.expand('%:t') .. '__'
-  local flutterTest = ':r!flutter test -j 10 --reporter expanded '
+  local flutterTest = ':r!fvm flutter test -j 10 --reporter expanded '
 
   if (vim.fn.buflisted(file) == 0) then
     vim.cmd(':new ' .. file)

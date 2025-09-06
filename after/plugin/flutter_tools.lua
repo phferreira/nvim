@@ -2,25 +2,44 @@ require("flutter-tools").setup {
   fvm = true,
   debugger = {
     enabled = true,
+    run_via_dap = true,
     exception_breakpoints = {},
     register_configurations = function(paths)
-      require('dap').adapters.dart = {
-        type = 'executable',
-        command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter', -- dart-debug-adapter.cmd for windows users
-        args = { 'dart' }
-      }
-      require('dap').adapters.flutter = {
-        type = 'executable',
-        command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter', -- dart-debug-adapter.cmd for windows users
-        args = { 'flutter' }
-      }
+      require('dap').adapters.dart = function(callback, config)
+        local cwd = config.cwd or vim.fn.getcwd()
+        local pubspec_path = cwd .. "/pubspec.yaml"
+
+        local is_flutter = false
+
+        -- Detecta se é projeto Flutter
+        local file = io.open(pubspec_path, "r")
+        if file then
+          for line in file:lines() do
+            if line:match("^%s*flutter:") then
+              is_flutter = true
+              break
+            end
+          end
+          file:close()
+        end
+
+        local command = is_flutter
+            and vim.fn.exepath("fvm") .. " flutter"
+            or vim.fn.exepath("fvm") .. " dart"
+
+        -- Como o dart-debug-adapter é um bin Node que espera `dart` ou `flutter` como argumento,
+        -- usamos sempre o mesmo adapter binário com o argumento correto
+        callback({
+          type = "executable",
+          command = vim.fn.stdpath("data") .. "/mason/bin/dart-debug-adapter",
+          args = { is_flutter and "flutter" or "dart" },
+        })
+      end
       require("dap").configurations.dart = {
         {
           type = 'dart',
           request = 'launch',
           name = 'Launch Dart',
-          dartSdkPath = '/home/paulo/.development/flutter/bin',
-          flutterSdkPath = '/home/paulo/.development/flutter/bin',
           program = '${workspaceFolder}/lib/main.dart',
           cwd = '${workspaceFolder}',
         },
@@ -28,8 +47,6 @@ require("flutter-tools").setup {
           type = 'flutter',
           request = 'launch',
           name = 'Launch Flutter Linux',
-          dartSdkPath = '/home/paulo/.development/flutter/bin',
-          flutterSdkPath = '/home/paulo/.development/flutter/bin',
           program = '${workspaceFolder}/lib/main.dart',
           cwd = '${workspaceFolder}',
           args = {
@@ -42,8 +59,6 @@ require("flutter-tools").setup {
           type = 'flutter',
           request = 'launch',
           name = 'Launch Flutter Chrome',
-          dartSdkPath = '/home/paulo/.development/flutter/bin',
-          flutterSdkPath = '/home/paulo/.development/flutter/bin',
           program = '${workspaceFolder}/lib/main.dart',
           cwd = '${workspaceFolder}',
           toolArgs = {
