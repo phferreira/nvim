@@ -7,7 +7,13 @@ require("conform").setup({
     rust = { "rustfmt", lsp_format = "fallback" },
     -- Conform will run the first available formatter
     javascript = { "prettierd", "prettier", stop_after_first = true },
-    sql={"sql_formatter", "pg_format"},
-
+    sql = { "pg_format" },
+  },
+  formatters = {
+    pg_format = {
+      command = "pg_format",
+      args = { "-s", "2" }, -- Indenta com 2 espaços
+      stdin = true,
+    },
   },
 })
