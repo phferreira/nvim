@@ -14,7 +14,8 @@ lsp_zero.format_on_save({
     ['rust_analyzer'] = { 'rust' },
     ['dartls'] = { 'dart' },
     ['lua_ls'] = { 'lua' },
-    ['jdtls'] = { 'java' }
+    ['jdtls'] = { 'java' },
+    ['black'] = { 'python' }
   }
 })
 
@@ -31,6 +32,10 @@ require('mason-lspconfig').setup({
     'jsonls',
     'sqlls',
     'jdtls'
+    'jdtls',
+    'pyright',
+    'black',
+    'debugpy'
     --  'xmlformatter'
   },
 
@@ -41,6 +46,9 @@ require('mason-lspconfig').setup({
 local lspconfig = require('lspconfig')
 
 lspconfig.jdtls.setup({})
+lspconfig.pyright.setup({
+  filetypes = { "pyhon" }
+})
 
 lspconfig.lua_ls.setup {
   settings = {

@@ -27,6 +27,17 @@ return require('packer').startup(function(use)
   use { "folke/neodev.nvim", opts = {} }
   use { "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } }
   use {
+    "mfussenegger/nvim-dap-python",
+    requires = {
+      "mfussenegger/nvim-dap"
+    },
+    ft = 'python',
+    config = function(_, opts)
+      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require('dap-python').setup(path)
+    end
+  }
+  use {
     "nvim-neotest/neotest",
     requires = {
       'nvim-neotest/nvim-nio',
