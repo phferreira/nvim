@@ -51,29 +51,35 @@ for _, pkg_name in ipairs(ensure_installed) do
 end
 
 
-lspconfig.lua_ls.setup {
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using
-        -- (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {
-          'vim',
-          'require'
-        },
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+
+local servers = {
+  {
+    name = "lua_ls",
+    cmd = { "lua-language-server" },
+    root_dir = vim.fs.root(0, { ".luarc.json", ".luarc.jsonc", ".git" }),
+    settings = {
+      Lua = {
+        runtime = { version = "LuaJIT" },
+        diagnostics = { globals = { "vim", "require" } },
+        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+        telemetry = { enable = false },
       },
     },
   },
+  {
+    name = "pyright",
+    cmd = { "pyright-langserver", "--stdio" },
+    root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", "requirements.txt", ".git" }),
+  },
+  -- {
+  --   name = "jdtls",
+  --   cmd = { "jdtls" },
+  --   root_markers = { "pom.xml", "gradlew", "mvnw", ".git" },
+  -- },
 }
+
+for _, config in ipairs(servers) do
+  config.capabilities = capabilities
+  vim.lsp.start(config)
+end
