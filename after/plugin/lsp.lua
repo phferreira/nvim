@@ -24,31 +24,32 @@ require('mason-lspconfig').setup({
   ensure_installed = {
     'lua_ls',
     'eslint',
-    -- 'tsserver',
     'rust_analyzer',
     'yamlls',
     'vimls',
     'dockerls',
     'jsonls',
     'sqlls',
-    'jdtls'
     'jdtls',
-    'pyright',
-    'black',
-    'debugpy'
-    --  'xmlformatter'
+    'pyright'
   },
 
   handlers = {
     lsp_zero.default_setup,
   },
 })
-local lspconfig = require('lspconfig')
 
-lspconfig.jdtls.setup({})
-lspconfig.pyright.setup({
-  filetypes = { "pyhon" }
-})
+local mason_registry = require("mason-registry")
+
+local ensure_installed = { "black", "debugpy" }
+
+for _, pkg_name in ipairs(ensure_installed) do
+  local pkg = mason_registry.get_package(pkg_name)
+  if not pkg:is_installed() then
+    pkg:install()
+  end
+end
+
 
 lspconfig.lua_ls.setup {
   settings = {
