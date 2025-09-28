@@ -72,11 +72,11 @@ local servers = {
     cmd = { "pyright-langserver", "--stdio" },
     root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", "requirements.txt", ".git" }),
   },
-  -- {
-  --   name = "jdtls",
-  --   cmd = { "jdtls" },
-  --   root_markers = { "pom.xml", "gradlew", "mvnw", ".git" },
-  -- },
+  {
+    name = "jdtls",
+    cmd = { "jdtls" },
+    -- root_dir = { "pom.xml", "gradlew", "mvnw", ".git" },
+  },
 }
 
 for _, config in ipairs(servers) do
