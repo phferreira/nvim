@@ -2,6 +2,32 @@ vim.g.mapleader = ' '
 
 local args = { noremap = true, silent = true }
 
+
+-- EXECUTE LINE
+vim.keymap.set({ 'n', 'v' }, '<leader><CR>', function()
+  local mode = vim.fn.mode()
+  local cmd
+
+  if mode:match('[vV]') then
+    -- modo visual: pega seleção
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+    local lines = vim.fn.getline(start_pos[2], end_pos[2])
+    cmd = table.concat(lines, " ")
+    -- sai do modo visual antes de executar o comando
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "nx", false)
+  else
+    -- modo normal: pega linha atual
+    cmd = vim.fn.getline('.')
+  end
+
+  if cmd ~= nil and cmd ~= '' then
+    vim.cmd(cmd)
+  else
+    print("⚠️ Nenhum comando para executar")
+  end
+end, { desc = "Executar linha ou seleção como comando Vim", silent = true })
+
 -- MOVE SELCTED LINES
 vim.keymap.set('v', '<C-K>', ':m \'<-2<CR>gv=gv')
 vim.keymap.set('v', '<C-J>', ':m \'>+1<CR>gv=gv')
