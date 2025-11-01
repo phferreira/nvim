@@ -44,3 +44,74 @@ dap.configurations.python = {
     env = { PYTHONPATH = vim.fn.getcwd() },
   }
 }
+
+
+-- Detecta qual versão do Flutter está ativa pelo FVM
+local function get_fvm_bin(bin)
+  -- Exemplo: fvm/versions/stable/bin/dart
+  local fvm_base = vim.fn.expand("~") .. "/fvm/versions"
+  -- tenta stable primeiro
+  local stable_bin = fvm_base .. "/stable/bin/" .. bin
+  if vim.fn.executable(stable_bin) == 1 then
+    return stable_bin
+  end
+  -- fallback: pega primeira versão instalada no FVM
+  local handle = io.popen("ls -1 " .. fvm_base)
+  local result = handle:read("*a")
+  handle:close()
+  for version in string.gmatch(result, "[^\n]+") do
+    local try_bin = fvm_base .. "/" .. version .. "/bin/" .. bin
+    if vim.fn.executable(try_bin) == 1 then
+      return try_bin
+    end
+  end
+  -- último recurso: tenta o binário do PATH
+  return vim.fn.exepath(bin)
+end
+
+dap.adapters.dart = {
+  type = "executable",
+  command = get_fvm_bin("dart"),
+  args = { "debug_adapter" },
+}
+
+dap.adapters.flutter = {
+  type = "executable",
+  command = get_fvm_bin("flutter"),
+  args = { "debug_adapter" },
+}
+
+dap.configurations.dart = {
+  {
+    type = "dart",
+    request = "launch",
+    name = "Debug Dart File",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+}
+
+dap.configurations.flutter = {
+  {
+    type = 'flutter',
+    request = 'launch',
+    name = 'Launch Flutter Linux',
+    program = '${workspaceFolder}/lib/main.dart',
+    cwd = '${workspaceFolder}',
+    args = {
+      '-d', 'linux',
+    },
+    toolArgs = {
+    }
+  },
+  {
+    type = 'flutter',
+    request = 'launch',
+    name = 'Launch Flutter Chrome',
+    program = '${workspaceFolder}/lib/main.dart',
+    cwd = '${workspaceFolder}',
+    toolArgs = {
+      '-d', 'chrome',
+    }
+  }
+}

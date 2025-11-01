@@ -187,17 +187,7 @@ vim.keymap.set('n', '<leader>std', ':TodoTelescope<CR>')
 -- DAP
 vim.keymap.set("n", "<F5>", function()
   local dap = require('dap')
-  local ext = vim.fn.expand("%:e")
-
-  if ext == "dart" then
-    if dap.session() then
-      dap.continue()
-    else
-      vim.cmd('FlutterRun')
-    end
-  else
-    dap.continue()
-  end
+  dap.continue()
 end, { desc = "Continuar depuração" })
 
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
