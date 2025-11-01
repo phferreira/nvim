@@ -1,5 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = {
+    'python',
     'javascript',
     'typescript',
     'dart',
@@ -24,7 +25,7 @@ require 'nvim-treesitter.configs'.setup {
   sync_install = false,
   auto_install = true,
   highlight = {
-    enable = false,
+    enable = true,
     disable = function(_, bufnr) return vim.b[bufnr].large_buf end,
     additional_vim_regex_highlighting = false,
   },
