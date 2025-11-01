@@ -69,23 +69,15 @@ return require('packer').startup(function(use)
       'mfussenegger/nvim-dap',
     },
   }
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    requires = {
-      --- Uncomment these if you want to manage LSP servers from neovim
-      { 'mason-org/mason-lspconfig.nvim' },
-
-      -- LSP Support
-      { 'neovim/nvim-lspconfig' },
-      -- Autocompletion
-      { 'hrsh7th/nvim-cmp' },
-      { 'hrsh7th/cmp-nvim-lsp' },
-      { 'L3MON4D3/LuaSnip' },
-      { 'saadparwaiz1/cmp_luasnip' },
-      { 'rafamadriz/friendly-snippets' },
-    }
-  }
+  use { "neovim/nvim-lspconfig" }   -- LSP principal
+  use { "williamboman/mason.nvim" } -- Gerenciador de servidores
+  use { 'mason-org/mason-lspconfig.nvim' }
+  use { "nvimtools/none-ls.nvim" }
+  use { "hrsh7th/nvim-cmp" }         -- Autocompletion
+  use { "hrsh7th/cmp-nvim-lsp" }     -- Integra cmp com LSP
+  use { "L3MON4D3/LuaSnip" }         -- Snippets
+  use { "saadparwaiz1/cmp_luasnip" } -- Integra cmp com LuaSnip
+  use { 'rafamadriz/friendly-snippets' }
   use {
     -- sudo apt-get install ripgrep
     "folke/todo-comments.nvim",

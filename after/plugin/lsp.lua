@@ -1,85 +1,70 @@
-local lsp_zero = require('lsp-zero')
+-- ===========================
+-- LSP Configuration (Neovim 0.11+)
+-- ===========================
 
-lsp_zero.on_attach(function(_, bufnr)
-  lsp_zero.default_keymaps({ buffer = bufnr })
-end)
-
-lsp_zero.format_on_save({
-  format_opts = {
-    async = false,
-    timeout_ms = 10000,
-  },
-  servers = {
-    ['tsserver'] = { 'javascript', 'typescript' },
-    ['rust_analyzer'] = { 'rust' },
-    ['dartls'] = { 'dart' },
-    ['lua_ls'] = { 'lua' },
-    ['jdtls'] = { 'java' },
-    ['black'] = { 'python' }
-  }
-})
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    'lua_ls',
-    'eslint',
-    'rust_analyzer',
-    'yamlls',
-    'vimls',
-    'dockerls',
-    'jsonls',
-    'sqlls',
-    'jdtls',
-    'pyright'
-  },
-
-  handlers = {
-    lsp_zero.default_setup,
-  },
-})
-
-local mason_registry = require("mason-registry")
-
-local ensure_installed = { "black", "debugpy" }
-
-for _, pkg_name in ipairs(ensure_installed) do
-  local pkg = mason_registry.get_package(pkg_name)
-  if not pkg:is_installed() then
-    pkg:install()
-  end
-end
-
-
+-- Capabilities padrão (para nvim-cmp/autocomplete)
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local servers = {
-  {
-    name = "lua_ls",
-    cmd = { "lua-language-server" },
-    root_dir = vim.fs.root(0, { ".luarc.json", ".luarc.jsonc", ".git" }),
-    settings = {
-      Lua = {
-        runtime = { version = "LuaJIT" },
-        diagnostics = { globals = { "vim", "require" } },
-        workspace = { library = vim.api.nvim_get_runtime_file("", true) },
-        telemetry = { enable = false },
+local function get_root_dir(patterns)
+  patterns = patterns or { ".git" }
+  local cwd = vim.fn.getcwd()
+  for _, pattern in ipairs(patterns) do
+    local found = vim.fn.findfile(pattern, cwd .. ";")
+    if found ~= "" then
+      return vim.fn.fnamemodify(found, ":h")
+    end
+  end
+  return cwd
+end
+
+vim.lsp.config.lua_ls = {
+  capabilities = capabilities,
+  -- Define quais arquivos ativam o LSP
+  filetypes = { "lua" },
+  -- Detecta raiz do projeto baseado em arquivos padrões
+  root_dir = get_root_dir({ ".luarc.json", ".luarc.jsonc", ".git" }),
+  settings = {
+    Lua = {
+      runtime = {
+        -- Usa LuaJIT (compatível com Neovim)
+        version = "LuaJIT",
+      },
+      diagnostics = {
+        -- Reconhece global 'vim' para evitar falsos positivos
+        globals = { "vim" },
+      },
+      workspace = {
+        -- Inclui runtime do Neovim para autocompletar APIs
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false, -- evita aviso desnecessário
+      },
+      telemetry = {
+        enable = false, -- desativa coleta de dados
       },
     },
   },
-  {
-    name = "pyright",
-    cmd = { "pyright-langserver", "--stdio" },
-    root_dir = vim.fs.root(0, { "pyproject.toml", "setup.py", "requirements.txt", ".git" }),
-  },
-  {
-    name = "jdtls",
-    cmd = { "jdtls" },
-    -- root_dir = { "pom.xml", "gradlew", "mvnw", ".git" },
-  },
 }
 
-for _, config in ipairs(servers) do
-  config.capabilities = capabilities
-  vim.lsp.start(config)
-end
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.lua",
+  callback = function(args)
+    -- Verifica se o lua_ls está ativo para este buffer
+    local clients = vim.lsp.get_clients({ bufnr = args.buf })
+    for _, client in ipairs(clients) do
+      if client.name == "lua_ls" and client.server_capabilities.documentFormattingProvider then
+        vim.lsp.buf.format({ bufnr = args.buf, async = false })
+        return
+      end
+    end
+  end,
+})
+
+-- Opcional: configura diagnósticos globais
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = true,
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+  float = { border = "rounded" },
+})

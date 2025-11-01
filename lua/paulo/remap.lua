@@ -2,6 +2,8 @@ vim.g.mapleader = ' '
 
 local args = { noremap = true, silent = true }
 
+local opts = { buffer = bufnr }
+
 
 -- EXECUTE LINE
 vim.keymap.set({ 'n', 'v' }, '<leader><CR>', function()
@@ -111,12 +113,28 @@ vim.keymap.set('n', '<leader>fta', ':lua FlutterTestAll()<cr>', args)
 
 -- CODE ACTION
 vim.keymap.set("n", "<M-CR>", vim.lsp.buf.code_action, { noremap = true, silent = true, desc = "Code Action" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+vim.keymap.set("n", "[d", function()
+  vim.diagnostic.jump({ count = -1 })
+  vim.defer_fn(function()
+    vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
+  end, 80)
+end, opts)
+
+vim.keymap.set("n", "]d", function()
+  vim.diagnostic.jump({ count = 1 })
+  vim.defer_fn(function()
+    vim.diagnostic.open_float(nil, { focus = false, border = "rounded" })
+  end, 80)
+end, opts)
 
 -- DIAGNOSTICS
 vim.keymap.set('n', '<leader>do', '<cmd>lua vim.diagnostic.open_float()<CR>', args)
 vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', args)
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', args)
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', args)
 
 -- GIT
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
