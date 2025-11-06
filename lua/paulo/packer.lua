@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
   use { 'folke/todo-comments.nvim' } -- sudo apt-get install ripgrep
   use { 'lambdalisue/suda.vim' }
   use { 'stevearc/conform.nvim', }
+  use { 'linux-cultist/venv-selector.nvim' }
   use {
     'mfussenegger/nvim-dap-python',
     ft = 'python',
