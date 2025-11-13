@@ -17,6 +17,28 @@ local function get_root_dir(patterns)
   return cwd
 end
 
+vim.lsp.config.pyright = {
+  capabilities = capabilities,
+  settings = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+      },
+      venvPath = vim.fn.expand("~/.virtualenvs"), -- onde ficam seus venvs (ajuste)
+      venv = "venv",                              -- nome do seu venv (exemplo)
+    },
+  },
+  on_init = function(client)
+    local venv = vim.fn.findfile("pyvenv.cfg", ".;")
+    if venv ~= "" then
+      local venv_dir = vim.fn.fnamemodify(venv, ":h")
+      vim.env.VIRTUAL_ENV = venv_dir
+      vim.env.PATH = venv_dir .. "/bin:" .. vim.env.PATH
+    end
+  end,
+}
+
 vim.lsp.config.lua_ls = {
   capabilities = capabilities,
   -- Define quais arquivos ativam o LSP
