@@ -30,6 +30,7 @@ vim.opt.smartcase = true
 vim.opt.ignorecase = true
 vim.opt.laststatus = 2
 vim.opt.wrap = false
+vim.opt.wrapscan = false
 vim.opt.exrc = true
 vim.g.db_ui_use_nerd_fonts = 1
 --vim.opt.nocompatible=true
