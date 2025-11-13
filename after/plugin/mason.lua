@@ -24,5 +24,6 @@ mason_lspconfig.setup({
     "dockerls",
     "ts_ls",
     "jdtls",
+    "mason-java-format",
   },
 })

@@ -12,6 +12,10 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 null_ls.setup({
   sources = {
+    formatting.google_java_format.with({
+      command = vim.fn.stdpath("data") .. "/mason/bin/google-java-format",
+      extra_args = { "--aosp" },
+    }),
     -- Python
     formatting.black.with({ extra_args = { "--fast" } }),
     diagnostics.flake8,
