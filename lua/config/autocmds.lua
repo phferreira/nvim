@@ -1,0 +1,51 @@
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+--
+-- Add any additional autocmds here
+-- with `vim.api.nvim_create_autocmd`
+--
+-- Or remove existing autocmds by their group name (which is prefixed with `lazyvim_` for the defaults)
+-- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+--
+-- debug_tabline.lua
+-- Create a log file to capture stacktraces when showtabline changes
+-- local logfile = vim.fn.stdpath("state") .. "/showtabline_changes.log"
+
+-- -- helper to append a string to file
+-- local function log(s)
+--   local f = io.open(logfile, "a")
+--   if f then
+--     f:write(os.date("%Y-%m-%d %H:%M:%S") .. " - " .. s .. "\n\n")
+--     f:close()
+--   end
+-- end
+
+-- Start with a note
+-- log("=== showtabline debug started ===")
+
+-- -- OptionSet autocmd fires when option changes
+-- vim.api.nvim_create_autocmd("OptionSet", {
+--   pattern = "showtabline",
+--   callback = function()
+--     local val = vim.o.showtabline
+--     -- capture a stacktrace
+--     local tb = debug.traceback("", 2)
+--     -- short context: current file/buffer & rtp
+--     local info = string.format(
+--       "showtabline changed -> %s\ncwd=%s\nbuf=%s\nrtp=%s\nstack:\n%s",
+--       tostring(val),
+--       vim.fn.getcwd(),
+--       vim.api.nvim_buf_get_name(0),
+--       table.concat(vim.opt.rtp:get(), ";"),
+--       tb
+--     )
+--     -- append to log
+--     log(info)
+
+--     -- Optional: restore immediately back to 2 (comment this out if you only want logging)
+--     vim.schedule(function()
+--       vim.o.showtabline = 2
+--       log("restored showtabline to 2")
+--     end)
+--   end,
+-- })
