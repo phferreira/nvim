@@ -1,6 +1,9 @@
 return {
   "folke/snacks.nvim",
   opts = {
+    lazygit = {
+      configure = true,
+    },
     bufferline = { enabled = false },
     -- explorer = { enabled = false },
     explorer = {
