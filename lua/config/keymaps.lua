@@ -65,7 +65,7 @@ vim.keymap.set("n", "<M-h>", ":bp<cr>", args)
 vim.keymap.set("n", "<C-M-l>", ":tabnext<cr>", args)
 vim.keymap.set("n", "<C-M-h>", ":tabprevious<cr>", args)
 vim.keymap.set("n", "<C-M-k>", ":tabnew<cr>", args)
-vim.keymap.set("n", "<C-M-j>", ":tabclose<cr>", args)
+-- vim.keymap.set("n", "<C-M-j>", ":tabclose<cr>", args)
 
 -- CLOSE BUFFER
 -- vim.keymap.set("n", "<leader>c", require("tabscope").remove_tab_buffer)
