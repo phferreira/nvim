@@ -52,7 +52,7 @@ return {
           })
 
           -- 🔥 Adiciona apenas os highlights do tema
-          if (vim.g.colors_name or ""):find("catppuccin") then
+          if (vim.g.colors_name or ""):find("catppuccin-mocha") then
             opts.highlights = require("catppuccin.special.bufferline").get_theme()
           end
         end,
@@ -63,7 +63,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "catppuccin-mocha",
     },
   },
 }
