@@ -29,7 +29,7 @@ vim.keymap.set({ "n", "v" }, "<leader><CR>", function()
   end
 end, { desc = "Executar linha ou seleção como comando Vim", silent = true })
 
--- MOVE SELCTED LINES
+-- MOVE SELECTED LINES
 vim.keymap.set("v", "<C-K>", ":m '<-2<CR>gv=gv", args)
 vim.keymap.set("v", "<C-J>", ":m '>+1<CR>gv=gv", args)
 
@@ -43,7 +43,7 @@ vim.keymap.set("v", "U", "Ugv", args)
 vim.keymap.set("x", "p", '"_dP', args)
 vim.keymap.set("x", "P", '"_dP', args)
 
--- CENTER ON COMMAN D
+-- CENTER ON COMMAND
 vim.keymap.set("n", "<space><space>", "i<space><ESC>", args)
 vim.keymap.set("n", "n", "nzzzv", args)
 vim.keymap.set("n", "N", "Nzzzv", args)
@@ -82,7 +82,7 @@ vim.keymap.set("n", "<leader>rc", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gc<LEFT><LEFT
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find Grep" })
-vim.keymap.set("n", "<leader>fG", builtin.git_files, { desc = "Find Git" })
+vim.keymap.set("n", "<leader>fG", builtin.git_status, { desc = "Find Git" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
@@ -137,62 +137,21 @@ vim.keymap.set("n", "<leader>do", "<cmd>lua vim.diagnostic.open_float()<CR>", ar
 vim.keymap.set("n", "<leader>dd", "<cmd>Telescope diagnostics<CR>", args)
 
 -- GIT
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git, args)
-vim.keymap.set("n", "<leader>gc", ":Git commit<CR>", args)
-vim.keymap.set("n", "<leader>ga", ":Git add %<CR>", args)
-vim.keymap.set("n", "<leader>gr", ":Git restore --staged %<CR>", args)
-vim.keymap.set("n", "<leader>gd", ":Gdiffsplit<CR>", args)
--- vim.keymap.set("n", "<leader>gl", ":Git log %<CR>", args)
-vim.keymap.set("n", "<leader>gl", ":lua require'telescope.builtin'.git_bcommits()<CR>", args)
-vim.keymap.set("n", "<leader>gb", ":Git blame %<CR>", args)
-vim.keymap.set("n", "<leader>gdh", ":diffget //2<CR>", args)
-vim.keymap.set("n", "<leader>gdl", ":diffget //3<CR>", args)
-vim.keymap.set("x", "<leader>gdp", ":diffput<CR>", args)
-vim.keymap.set("x", "<leader>gdg", ":diffget<CR>", args)
-vim.keymap.set("n", "<leader>gw", ":Gwrite<CR>", args)
-vim.keymap.set("n", "<leader>gp", ":Git push<CR>", args)
-vim.keymap.set("n", "<leader>gf", ":Git fetch --prune<CR>", args)
-vim.keymap.set("n", "<leader>gR", ":lua GReset()<CR>", args)
-vim.keymap.set("n", "<leader>gP", ":lua GPull()<CR>", args)
-vim.keymap.set("n", "<leader>gC", ":lua require'telescope.builtin'.git_branches()<CR>", args)
-vim.keymap.set("n", "<leader>gS", ":lua require'telescope.builtin'.git_stash()<CR>", args)
-vim.keymap.set("n", "<leader>gL", ":lua require'telescope.builtin'.git_commits()<CR>", args)
-vim.keymap.set("n", "<leader>d", ":lua ToggleDiagnostics()<CR>", args)
-
--- GIT SIGNS
-local gs = require("gitsigns")
-
-vim.keymap.set("n", "]c", function()
-  if vim.wo.diff then
-    return "]c"
-  end
-  vim.schedule(function()
-    gs.next_hunk()
-  end)
-  return "<Ignore>"
-end, { expr = true })
-
-vim.keymap.set("n", "[c", function()
-  if vim.wo.diff then
-    return "[c"
-  end
-  vim.schedule(function()
-    gs.prev_hunk()
-  end)
-  return "<ignore>"
-end, { expr = true })
-
-vim.keymap.set("n", "<leader>hr", gs.reset_hunk)
-vim.keymap.set("v", "<leader>hr", function()
-  gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+vim.keymap.set("n", "<leader>gl", function()
+  Snacks.lazygit.log()
 end)
-vim.keymap.set("n", "<leader>hp", gs.preview_hunk)
-vim.keymap.set("n", "<leader>hb", function()
-  gs.blame_line({ full = true })
+
+vim.keymap.set("n", "<leader>gL", function()
+  Snacks.lazygit.log_file()
 end)
-vim.keymap.set("n", "<leader>tb", gs.toggle_current_line_blame)
-vim.keymap.set("n", "<leader>td", gs.toggle_deleted)
-vim.keymap.set("n", "<leader>tl", gs.toggle_linehl)
+
+vim.keymap.set("n", "<leader>gb", function()
+  Snacks.git.blame_line()
+end)
+
+vim.keymap.set("n", "<leader>gC", function()
+  Snacks.gitbrowse()
+end)
 
 -- SHOW TODOS
 vim.keymap.set("n", "<leader>std", ":TodoTelescope<CR>")
