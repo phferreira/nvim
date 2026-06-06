@@ -1,3 +1,12 @@
+local function get_recording_macro()
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "Recording @" .. recording_register
+  end
+end
+
 return {
   "nvim-lualine/lualine.nvim",
   -- init = function()
@@ -17,7 +26,7 @@ return {
       always_divide_middle = true,
       globalstatus = false,
       refresh = {
-        statusline = 1000,
+        statusline = 500,
         tabline = 1000,
         winbar = 1000,
       },
@@ -27,7 +36,7 @@ return {
       lualine_a = { "mode" },
       lualine_b = { "branch", "diff", "diagnostics" },
       lualine_c = { "filename" },
-      lualine_x = { "encoding", "fileformat", "filetype" },
+      lualine_x = { get_recording_macro, "encoding", "fileformat", "filetype" },
       lualine_y = { "progress" },
       lualine_z = { "location" },
     },
