@@ -1,2 +1,0 @@
-return { "lambdalisue/suda.vim",
-}
