@@ -40,8 +40,8 @@ vim.keymap.set("v", "u", "ugv", args)
 vim.keymap.set("v", "U", "Ugv", args)
 
 -- KEEP CURRENT REGISTER ON PASTE
-vim.keymap.set("x", "p", '"_dP', args)
-vim.keymap.set("x", "P", '"_dP', args)
+-- vim.keymap.set("x", "p", '"_dP', args)
+-- vim.keymap.set("x", "P", '"_dP', args)
 
 -- CENTER ON COMMAND
 vim.keymap.set("n", "<space><space>", "i<space><ESC>", args)
@@ -82,7 +82,6 @@ vim.keymap.set("n", "<leader>rc", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gc<LEFT><LEFT
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
 vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find Grep" })
-vim.keymap.set("n", "<leader>fG", builtin.git_status, { desc = "Find Git" })
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
@@ -211,20 +210,6 @@ vim.keymap.set("n", "<leader>trd", ':lua require("neotest").run.run({strategy = 
 
 -- DADBOD
 vim.keymap.set("n", "<leader>db", ":DBUIToggle<CR>", args)
-
---CHATGPT
-vim.keymap.set("n", "<leader>cg", "<cmd>ChatGPT<cr>", { desc = "Open ChatGPT" })
-vim.keymap.set("v", "<leader>ce", ":<C-u>ChatGPTRun explain_code<CR>", { desc = "Explain code", silent = true })
-vim.keymap.set("v", "<leader>cf", ":<C-u>ChatGPTRun fix_bugs<CR>", { desc = "Fix bugs", silent = true })
-vim.keymap.set("v", "<leader>co", ":<C-u>ChatGPTRun optmize_code<CR>", { desc = "Optmize code", silent = true })
-vim.keymap.set("v", "<leader>ct", ":<C-u>ChatGPTRun add_tests<CR>", { desc = "Add tests", silent = true })
-vim.keymap.set("v", "<leader>cT", ":<C-u>ChatGPTRun translate<CR>", { desc = "Translate", silent = true })
-vim.keymap.set(
-  "v",
-  "<leader>ci",
-  ":<C-u>ChatGPTEditWithInstructions<CR>",
-  { desc = "Open ChatGPT with prompt", silent = true }
-)
 
 -- UNDOTREE
 vim.keymap.set("n", "<leader>uu", ":UndotreeToggle<CR>", { silent = true })
