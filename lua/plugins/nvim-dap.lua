@@ -2,12 +2,14 @@ return {
   {
     "mfussenegger/nvim-dap",
     dependencies = {
+      "nvim-neotest/nvim-nio",
       "rcarriga/nvim-dap-ui",
       "jay-babu/mason-nvim-dap.nvim",
     },
     config = function()
       local dap = require("dap")
       local dapui = require("dapui")
+      local dap_utils = require("dap.utils")
 
       -- ======================
       -- UI Setup
@@ -16,6 +18,94 @@ return {
 
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
+      end
+
+      require("mason-nvim-dap").setup({
+        ensure_installed = { "js" },
+      })
+
+      -- ======================
+      -- JavaScript / TypeScript
+      -- ======================
+      local js_debug_adapter = vim.fn.exepath("js-debug-adapter")
+      if js_debug_adapter == "" then
+        js_debug_adapter = vim.fn.stdpath("data") .. "/mason/bin/js-debug-adapter"
+      end
+
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "127.0.0.1",
+        port = "${port}",
+        executable = {
+          command = js_debug_adapter,
+          args = { "${port}", "127.0.0.1" },
+        },
+        options = {
+          max_retries = 40,
+        },
+      }
+
+      local js_ts_configurations = {
+        -- {
+        --   type = "pwa-node",
+        --   request = "launch",
+        --   name = "Launch current file",
+        --   cwd = "${workspaceFolder}",
+        --   program = "${file}",
+        --   console = "integratedTerminal",
+        --   sourceMaps = true,
+        --   skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        -- },
+        -- {
+        --   type = "pwa-node",
+        --   request = "launch",
+        --   name = "Launch current file with tsx",
+        --   cwd = "${workspaceFolder}",
+        --   runtimeExecutable = "node",
+        --   runtimeArgs = { "--import", "tsx" },
+        --   args = { "${file}" },
+        --   console = "integratedTerminal",
+        --   sourceMaps = true,
+        --   skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        -- },
+        -- {
+        --   type = "pwa-node",
+        --   request = "launch",
+        --   name = "Run npm script",
+        --   cwd = "${workspaceFolder}",
+        --   runtimeExecutable = "npm",
+        --   runtimeArgs = {
+        --     "run",
+        --     function()
+        --       return vim.fn.input("npm script: ")
+        --     end,
+        --   },
+        --   console = "integratedTerminal",
+        --   sourceMaps = true,
+        --   skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        -- },
+        -- {
+        --   type = "pwa-node",
+        --   request = "attach",
+        --   name = "Attach to process",
+        --   processId = dap_utils.pick_process,
+        --   cwd = "${workspaceFolder}",
+        --   sourceMaps = true,
+        --   skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        -- },
+        -- {
+        --   type = "pwa-node",
+        --   request = "attach",
+        --   name = "Attach to port 9229",
+        --   cwd = "${workspaceFolder}",
+        --   port = 9229,
+        --   sourceMaps = true,
+        --   skipFiles = { "<node_internals>/**", "${workspaceFolder}/node_modules/**" },
+        -- },
+      }
+
+      for _, language in ipairs({ "javascript", "javascriptreact", "typescript", "typescriptreact" }) do
+        dap.configurations[language] = js_ts_configurations
       end
 
       -- ======================
